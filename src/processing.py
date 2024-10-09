@@ -6,11 +6,11 @@ def filter_by_state(list_dictionary: list, state: str = "EXECUTED") -> list:
     """
     list_executed: list = []
     list_canceled: list = []
-    for key in list_dictionary:
-        if key.get("state") == state:
-            list_executed.append(key)
+    for item in list_dictionary:
+        if item.get("state") == state:
+            list_executed.append(item)
         else:
-            list_canceled.append(key)
+            list_canceled.append(item)
 
 
     return f"{list_executed}\n{list_canceled}"
