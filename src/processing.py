@@ -13,7 +13,7 @@ def filter_by_state(list_dictionary: list, state: str = "EXECUTED") -> list:
             list_canceled.append(item)
 
 
-    return list_executed
+    return [list_executed, list_canceled]
 
 
 def sort_by_date(list_dictionary: list, sort_order: bool = True) -> list:
