@@ -12,7 +12,6 @@ def filter_by_state(list_dictionary: list, state: str = "EXECUTED") -> list:
         else:
             list_canceled.append(item)
 
-
     return [list_executed, list_canceled]
 
 
