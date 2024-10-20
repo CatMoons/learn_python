@@ -6,7 +6,7 @@ import pytest
 from src.generators import filter_by_currency, transaction_descriptions, card_number_generator, transactions
 
 
-def test_filter_by_currency() -> None:
+def test_filter_by_currency():
     for transaction in transactions:
         if transaction.get("operationAmount").get("currency").get("name") == currency:
             usd_transactions = filter_by_currency(transactions, "USD")
@@ -41,7 +41,7 @@ def test_filter_by_currency() -> None:
             assert StopIteration("Ошибка в данных!")
 
 
-def test_transaction_descriptions() -> None:
+def test_transaction_descriptions():
     for transaction in transactions:
         if transaction.get("description") in transactions:
             assert next(transactions) == "Перевод организации"
@@ -53,7 +53,7 @@ def test_transaction_descriptions() -> None:
             assert StopIteration
 
 
-def test_card_number_generator() -> None:
+def test_card_number_generator():
     if card_number_generator(1, 6):
         assert next(card_number_generator(1, 5)) == "0000 0000 0000 0001"
         assert next(card_number_generator(2, 5)) == "0000 0000 0000 0002"
