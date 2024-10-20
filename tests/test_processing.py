@@ -37,7 +37,7 @@ def test_filter_by_state(list_dict: list, state: str = "EXECUTED") -> None:
 
 
 @pytest.fixture
-def list_dicti() -> list:
+def list_dictio() -> list:
     return [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
         {"id": 939719570, "state": "EXECUTED", "date": "2023-06-30T02:08:58.425572"},
