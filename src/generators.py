@@ -63,9 +63,6 @@ def filter_by_currency(transactions: list, currency: str) -> Generator[list, lis
             raise StopIteration("Ошибка в данных!")
 
 
-
-
-
 def transaction_descriptions(transactions: list) -> Generator[list, str, None]:
     """
     Принимает список словарей с транзакциями и возвращает описание каждой операции по очереди.
@@ -76,8 +73,6 @@ def transaction_descriptions(transactions: list) -> Generator[list, str, None]:
             yield transaction.get("description")
         except StopIteration:
             break
-
-
 
 
 def card_number_generator(start: int, end: int) -> Generator[str, str, None]:
@@ -94,6 +89,7 @@ def card_number_generator(start: int, end: int) -> Generator[str, str, None]:
         formatted_card_number: str = f"{card_number[:4]} {card_number[4:8]} {card_number[8:12]} {card_number[12:]}"
 
         yield formatted_card_number
+
 
 for card_number in card_number_generator(1, 5):
     print(card_number)
