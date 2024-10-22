@@ -1,5 +1,4 @@
 from src.decorators import log
-import pytest
 
 
 @log(filename="log.txt")
@@ -18,17 +17,27 @@ def divide(x, y):
 
 
 def test_log_to_console(capsys):
+    """
+    Проверяет программу на правильность вывода в консоль с учетом отсутствия ошибки
+    """
     divide(1, 2)
 
     captured = capsys.readouterr()
-    assert captured.out == "Starting divide with args (1, 2) kwargs {}\nFinished divide with args (1, 2) kwargs {}\n"
+    assert (
+        captured.out == "Starting divide with args (1, 2) kwargs {}\ndivide Successful\n"
+        "Finished divide with args (1, 2) kwargs {}\n"
+    )
 
 
 def test_log_to_console_with_err(capsys):
+    """
+    Проверяет программу на правильность вывода в консоль с учетом наличия ошибки
+    """
     divide(1, "2")
 
     captured = capsys.readouterr()
     assert (
         captured.out
         == "Starting divide with args (1, '2') kwargs {}\nERROR: unsupported operand type(s) for +: 'int' and 'str'\n"
+        "Finished divide with args (1, '2') kwargs {}\n"
     )
