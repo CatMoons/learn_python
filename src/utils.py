@@ -1,8 +1,9 @@
 import json
 import os
+from typing import List, Union, Any
 
 
-def get_info_transactions_json(file_path):
+def get_info_transactions_json(file_path: str)->List[Any]:
 
     data_empty_list: list = []
 
