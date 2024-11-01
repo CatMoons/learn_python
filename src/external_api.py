@@ -5,6 +5,12 @@ from dotenv import load_dotenv
 from json import JSONDecodeError
 
 def convert_sum(file_path):
+    '''
+    возвращает сумму транзакции в рублях
+    обращается к внешнему API для получения текущего курса валют и конвертации суммы операции в рубли
+    :param file_path:
+    :return:
+    '''
     load_dotenv(".env")
     api_key = os.getenv("API_KEY")
     headers = {"api-key": api_key}

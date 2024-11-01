@@ -4,6 +4,11 @@ from typing import List, Union, Any
 
 
 def get_info_transactions_json(file_path: str)->List[Any]:
+    '''
+    возвращает список словарей с данными о финансовых транзакциях или пустой список
+    :param file_path:
+    :return:
+    '''
 
     data_empty_list: list = []
 
