@@ -32,7 +32,7 @@ def convert_sum(file_path):
                     amount_list.append(amount_from_transaction)
                 elif code_from_transaction in ["USD", "EUR"]:
 
-                    url = f"https://api.apilayer.com/currency_data/convert?base=USD&symbols=EUR,GBP,JPY&amount=5"
+                    url = f"https://api.apilayer.com/exchangerates_data/convert?base=USD&symbols=EUR,GBP,JPY&amount=5"
                     params = {"from": code_from_transaction, "to": "RUB", "amount": amount_from_transaction}
                     response = requests.get(url, headers=headers, params=params)
                     if response.ok:
