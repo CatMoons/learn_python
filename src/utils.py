@@ -27,5 +27,5 @@ def get_info_transactions_json(file_path: str) -> List[Any]:
 
 
 if __name__ == "__main__":
-    data = get_info_transactions_json("E:\pycharm_project\widget_personal_cabinet\data\operations.json")
+    data = get_info_transactions_json("E:\\\\pycharm_project\\\\widget_personal_cabinet\\\\data\\\\operations.json")
     print(data)
