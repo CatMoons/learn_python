@@ -1,0 +1,17 @@
+import pytest
+from unittest.mock import mock_open, patch
+import csv
+
+from src.read_transaction_csv_xlsx import transactions_csv
+
+def test_transactions_csv_correct_file():
+    mock_csv_content = "name;amount;date\\nJohn;100;2023-01-01\\nJane;150;2023-01-02\\n"
+    expected_result = [
+        {'name': 'John', 'amount': '100', 'date': '2023-01-01'},
+        {'name': 'Jane', 'amount': '150', 'date': '2023-01-02'},
+    ]
+
+    with patch("builtins.open", mock_open(read_data=mock_csv_content), create=True):
+        with patch("csv.DictReader", return_value=csv.DictReader(mock_csv_content.splitlines(), delimiter=';')):
+            result = transactions_csv("fake_file.csv")
+            assert result == expected_result
