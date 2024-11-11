@@ -5,22 +5,11 @@ def filter_by_state(list_dictionary: list, state: str = "EXECUTED") -> list:
     у которых ключ state соответствует указанному значению.
     """
 
-    list_executed: list = []
-    list_canceled: list = []
-    list_different: list = []
-    for item in list_dictionary:
-        if item.get("state") == state:
-            list_executed.append(item)
-            list_canceled.append(item)
-            list_different.append(item)
-
-
-    if state == "EXECUTED":
-        return list_executed
-    elif state == "CANCELLED":
-        return list_canceled
-    else:
-        return list_different
+    new_list = []
+    for key in list_dictionary:
+        if key.get("state") == state:
+            new_list.append(key)
+    return new_list
 
 
 def sort_by_date(list_dictionary: list, sort_order: bool = True) -> list:

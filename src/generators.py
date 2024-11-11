@@ -57,9 +57,9 @@ def filter_by_currency(transactions: list, currency: str) -> Generator[list, lis
 
     """
     for transaction in transactions:
-        if transaction.get("operationAmount").get("currency").get("name") == currency:
+        if transaction.get("operationAmount").get("currency").get("code") == currency:
             yield transaction
-        elif transaction.get("operationAmount").get("currency").get("name") != currency:
+        elif transaction.get("operationAmount").get("currency").get("code") != currency:
             raise StopIteration("Ошибка в данных!")
 
 
@@ -91,5 +91,4 @@ def card_number_generator(start: int, end: int) -> Generator[str, str, None]:
         yield formatted_card_number
 
 
-for card_number in card_number_generator(1, 5):
-    print(card_number)
+

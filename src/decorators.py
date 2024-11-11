@@ -50,8 +50,8 @@ def log(filename):
 
     return decorator
 
-@log(filename=None)
-def divide(x, y):
-    return x + y
-
-divide(1, 2)
+# @log(filename=None)
+# def divide(x, y):
+#     return x + y
+#
+# divide(1, 2)
