@@ -33,3 +33,6 @@ def transactions_xlsx(filename: str) -> list:
         return ecxel_data
     except FileNotFoundError:
         return []
+
+
+print(transactions_csv("E:/pycharm_project/widget_personal_cabinet/data/transactions.csv"))
