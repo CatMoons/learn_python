@@ -1,49 +1,48 @@
-import os
-from _datetime import datetime
-
-from src.decorators import log
+from src.filter import filter_by_curr_csv
+from src.generators import filter_by_currency
 from src.processing import filter_by_state, sort_by_date
-from src.external_api import convert_sum
-from src.generators import transaction_descriptions, card_number_generator
 from src.read_transaction_csv_xlsx import transactions_csv, transactions_xlsx
+from src.search_trans import trans_search
 from src.utils import get_info_transactions_json
-from src.widget import mask_account_card, get_date
-from src.search_trans import trans_search, count_trans
-from src.masks import get_mask_card_number, get_mask_account
-from src.filter import filter_by_currency
+from src.widget import get_date, mask_account_card
 
 
 def get_file_selection():
-    print('''Привет! Добро пожаловать в программу работы
+    print(
+        """Привет! Добро пожаловать в программу работы
 с банковскими транзакциями.
 Выберите необходимый пункт меню:
 1. Получить информацию о транзакциях из JSON-файла
 2. Получить информацию о транзакциях из CSV-файла
-3. Получить информацию о транзакциях из XLSX-файла''')
+3. Получить информацию о транзакциях из XLSX-файла"""
+    )
+    global user_input_file
 
     user_input_file = input("Введите число от 1 до 3 включительно:\n")
 
-    if user_input_file == '1':
+    if user_input_file == "1":
         print("Для обработки выбран JSON-файл.\n")
-        file_use = get_info_transactions_json("../data/transactions.json")
+        file_use = get_info_transactions_json("E:/pycharm_project/widget_personal_cabinet/data/operations.json")
         return file_use
-    elif user_input_file == '2':
+    elif user_input_file == "2":
         print("Для обработки выбран CSV-файл.\n")
-        file_use = transactions_csv("../data/transactions.csv")
+        file_use = transactions_csv("E:/pycharm_project/widget_personal_cabinet/data/transactions.csv")
         return file_use
-    elif user_input_file == '3':
+    elif user_input_file == "3":
         print("Для обработки выбран XLSX-файл.\n")
-        file_use = transactions_xlsx("../data/transactions.xlsx")
+        file_use = transactions_xlsx("E:/pycharm_project/widget_personal_cabinet/data/transactions_excel.xlsx")
         return file_use
     else:
         return "Введен некорректный номер"
 
+
 def entering_the_status(file):
     while True:
         print(
-            '''Введите статус, по которому необходимо выполнить фильтрацию.
+            """Введите статус, по которому необходимо выполнить фильтрацию.
 Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING
-''')
+"""
+        )
 
         user_input_status = input("Введите доступный статус:\n").upper()
 
@@ -57,6 +56,7 @@ def entering_the_status(file):
 
     return res_status
 
+
 def sort_trans_date(file_list):
     print("Отсортировать операции по дате? Да/Нет")
 
@@ -69,30 +69,47 @@ def sort_trans_date(file_list):
             is_revers = False
             data = sort_by_date(file_list, is_revers)
             return data
-        elif user_input_sort == "НЕТ":
+        elif user_input_sort == "по убыванию":
             is_revers = True
             data = sort_by_date(file_list, is_revers)
+            return data
+
+    elif user_input_date == "НЕТ":
+        s = file_list
+        return s
+    else:
+        return "Некорректный ввод!"
+
+
+def rub_transaction(transactions):
+    print("Выводить только рублевые транзакции? Да/Нет")
+    input_user_currency = input("Ввод:\n").upper()
+    if user_input_file == "1":
+        if input_user_currency == "ДА":
+            data = filter_by_currency(transactions, "RUB")
+            return list(data)
+        elif input_user_currency == "НЕТ":
+            data = transactions
+            return data
+        else:
+            return "Некорректный ввод!"
+    elif user_input_file == "2" or user_input_file == "3":
+        if input_user_currency == "ДА":
+            data = filter_by_curr_csv(transactions, "RUB")
+            return list(data)
+        elif input_user_currency == "НЕТ":
+            data = transactions
             return data
         else:
             return "Некорректный ввод!"
 
 
-def rub_transaction(file_list):
-    print("Выводить только рублевые транзакции? Да/Нет")
-    input_user_currency = input("Ввод:\n").upper()
-    currency_rub = "RUB"
-
-    if input_user_currency == "ДА":
-        data = filter_by_currency(file_list, currency_rub)
-        return list(data)
-    elif input_user_currency == "НЕТ":
-        return
-    else:
-        return "Некорректный ввод!"
-
 def filter_search_word(file_list):
-    print('''Отфильтровать список транзакций по определенному слову
-в описании? Да/Нет''')
+    print(
+        """Отфильтровать список транзакций по определенному слову
+в описании? Да/Нет"""
+    )
+
     user_input_search = input("Ввод:\n").upper()
     if user_input_search == "ДА":
         print("Введите слово:")
@@ -100,9 +117,10 @@ def filter_search_word(file_list):
         data = trans_search(file_list, string_to_search)
         return data
     elif user_input_search == "НЕТ":
-        return
+        return file_list
     else:
         return "Некорректный ввод!"
+
 
 def result(file_list: list):
     if len(list(file_list)) == 0:
@@ -133,7 +151,6 @@ def result(file_list: list):
         print(f"{mask_to} Сумма: {amount} {currency}")
 
 
-
 def main():
     file_selection = get_file_selection()
     status = entering_the_status(file_selection)
@@ -145,4 +162,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
