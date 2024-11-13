@@ -1,5 +1,5 @@
 import re
-import collections
+from collections import Counter
 
 
 def trans_search(transactions, string_search):
@@ -28,13 +28,15 @@ def count_trans(list_trans, list_category):
     :param list_category:
     :return:
     '''
-    count_operation = collections.Counter(list_trans)
 
-    for trans in list_trans:
-        description = trans.get('description').lower()
+    count_operation = Counter()
+
+    for transaction in list_trans:
+        description = transaction['description']
 
         for category in list_category:
-            if category.lower() in description:
+            if category.lower() in description.lower():
                 count_operation[category] += 1
+                break
 
     return count_operation
