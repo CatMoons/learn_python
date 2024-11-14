@@ -1,6 +1,7 @@
 from typing import Generator
 
 
+
 def filter_by_currency(transactions: list, currency: str) -> Generator[list, None, None]:
     """
     Функция которая принимает на вход список словарей, представляющих транзакции.
@@ -11,6 +12,7 @@ def filter_by_currency(transactions: list, currency: str) -> Generator[list, Non
     for transaction in transactions:
         if transaction.get("operationAmount").get("currency").get("code") == currency:
             yield transaction
+
 
 
 def transaction_descriptions(transactions: list) -> Generator[list, str, None]:
