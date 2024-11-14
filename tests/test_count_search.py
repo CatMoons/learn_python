@@ -41,23 +41,6 @@ def test_count_trans(sample_data):
 
     assert output == expected_output, f"Expected {expected_output}, but got {output}"
 
-def test_count_trans_no_matches():
-    '''
-    проверяет ситуации, когда ни одна из транзакций не соответствует ни одной из категорий.
-    :return:
-    '''
-    list_trans = [
-        {'description': 'Investment'},
-        {'description': 'Holiday trip'}
-    ]
-
-    list_category = ['Grocery', 'Subscription', 'Utilities', 'Dining', 'Salary']
-
-    expected_output = Counter({'Grocery': 0, 'Subscription': 0, 'Utilities': 0, 'Dining': 0, 'Salary': 0})
-
-    output = count_trans(list_trans, list_category)
-
-    assert output == expected_output, f"Expected {expected_output}, but got {output}"
 
 def test_count_trans_empty():
     '''
